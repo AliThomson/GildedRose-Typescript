@@ -50,7 +50,8 @@ describe('Gilded Rose', function () {
         const items: Array<Item> = [
             new Item("Thing1", 50, 49),
             new Item("Thing2", 1, 7),
-            new Item("Thing3", 4, 10)
+            new Item("Thing3", 0, 7),
+            new Item("Thing4", 4, 10)
         ];
         const gildedRose = new GildedRose(items);
         
@@ -61,7 +62,8 @@ describe('Gilded Rose', function () {
         const expectedOutput = [
             new Item('Thing1', 49, 48),
             new Item('Thing2', 0, 6),
-            new Item('Thing3', 3, 9)
+            new Item('Thing3', -1, 5),
+            new Item('Thing4',  3, 9)
             ];
         expect(gildedRose.items).to.deep.equal(expectedOutput);
     });
@@ -127,6 +129,27 @@ describe('Gilded Rose', function () {
             new Item('Sulfuras, Hand of Ragnaros', 1, 80),
             new Item('Sulfuras, Hand of Ragnaros', 50, 1)
         ];
+        expect(gildedRose.items).to.deep.equal(expectedOutput);
+    });
+    it('should double decrease quality for conjured items', function() {
+
+        //Arrange
+        const items: Array<Item> = [
+            new Item("Conjured Thing1", 50, 49),
+            new Item("Conjured Thing2", 1, 7),
+            new Item("Conjured Thing3", 0, 10)
+        ];
+        const gildedRose = new GildedRose(items);
+        
+        //Act
+        gildedRose.updateQuality();
+        
+        //Assert
+        const expectedOutput = [
+            new Item('Conjured Thing1', 49, 47),
+            new Item('Conjured Thing2', 0, 5),
+            new Item('Conjured Thing3', -1, 6)
+            ];
         expect(gildedRose.items).to.deep.equal(expectedOutput);
     });
 

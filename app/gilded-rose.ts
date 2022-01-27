@@ -50,10 +50,27 @@ export class GildedRose {
                     //quality never changes
                     break;
                 default:
-                    if (this.items[i].quality > 0) {
+                    //All standard items plus Conjured
+                    if (this.items[i].sellIn <= 0) {
+                        this.items[i].quality = this.items[i].quality - 2
+                    } else {
                         this.items[i].quality = this.items[i].quality - 1
+                        }
                     }
-                }
+
+                    if (this.items[i].name.startsWith("Conjured")) {
+                        if (this.items[i].sellIn <= 0) {
+                            this.items[i].quality = this.items[i].quality - 2
+                        } else {
+                            this.items[i].quality = this.items[i].quality - 1
+                            }
+                        }
+                    
+                    if (this.items[i].quality < 0) {
+                        this.items[i].quality = 0
+                    
+                    }
+
             if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
                 this.items[i].sellIn = this.items[i].sellIn - 1;
             }
