@@ -18,30 +18,36 @@ export class GildedRose {
     }
 
     updateQuality() {
+        const specialItems = ['Aged Brie', 'Backstage passes to a TAFKAL80ETC concert', 'Sulfuras, Hand of Ragnaros'];
+
         for (let i = 0; i < this.items.length; i++) {
-            if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
+            //for all items that are not 'special'
+            if (!specialItems.includes(this.items[i].name)) {
+
                 if (this.items[i].quality > 0) {
-                    if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-                        this.items[i].quality = this.items[i].quality - 1
-                    }
+                    this.items[i].quality = this.items[i].quality - 1
                 }
             } else {
-                if (this.items[i].quality < 50) {
-                    this.items[i].quality = this.items[i].quality + 1
-                    if (this.items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
-                        if (this.items[i].sellIn < 11) {
-                            if (this.items[i].quality < 50) {
-                                this.items[i].quality = this.items[i].quality + 1
+                if (this.items[i].name !== 'Sulfuras, Hand of Ragnaros') {
+
+                    if (this.items[i].quality < 50) {
+                        this.items[i].quality = this.items[i].quality + 1
+                        if (this.items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
+                            if (this.items[i].sellIn < 11) {
+                                if (this.items[i].quality < 50) {
+                                    this.items[i].quality = this.items[i].quality + 1
+                                }
+                            }
+                            if (this.items[i].sellIn < 6) {
+                                if (this.items[i].quality < 50) {
+                                    this.items[i].quality = this.items[i].quality + 1
+                                }
                             }
                         }
-                        if (this.items[i].sellIn < 6) {
-                            if (this.items[i].quality < 50) {
-                                this.items[i].quality = this.items[i].quality + 1
-                            }
-                        }
-                    }
+                    } 
                 }
             }
+
             if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
                 this.items[i].sellIn = this.items[i].sellIn - 1;
             }
