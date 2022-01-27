@@ -44,4 +44,34 @@ describe('Gilded Rose', function () {
         expect(gildedRose.items).to.deep.equal(expectedOutput);
     });
 
+    it('should decrease quality for all standard items', function() {
+
+        //Arrange
+        const items: Array<Item> = [
+            new Item("Thing1", 50, 49),
+            new Item("Thing2", 1, 7),
+            new Item("Thing3", 4, 10),
+            new Item("Aged Brie", 50, 49),
+            new Item("Backstage passes to a TAFKAL80ETC concert", 2, 50),
+            new Item("Sulfuras, Hand of Ragnaros", 1, 80),
+            new Item("Sulfuras, Hand of Ragnaros", 50, 1)
+            ];
+        const gildedRose = new GildedRose(items);
+        
+        //Act
+        gildedRose.updateQuality();
+        
+        //Assert
+        const expectedOutput = [
+            new Item('Thing1', 49, 48),
+            new Item('Thing2', 0, 6),
+            new Item('Thing3', 3, 9),
+            new Item('Aged Brie', 49, 50),
+            new Item('Backstage passes to a TAFKAL80ETC concert', 1, 50),
+            new Item('Sulfuras, Hand of Ragnaros', 1, 80),
+            new Item('Sulfuras, Hand of Ragnaros', 50, 1)
+        ];
+        expect(gildedRose.items).to.deep.equal(expectedOutput);
+    });
+
 });
